@@ -8,9 +8,7 @@
         <router-view/>
 
       </transition>
-      <div class="test">
-      
-      </div>
+
     </div>
 
   </div>
