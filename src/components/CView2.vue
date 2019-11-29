@@ -36,6 +36,20 @@
             </div>
         </div>
 
+        <div class="md-layout md-gutter">
+            <div class="md-layout-item md-small-size-100">
+                <md-field>
+                    <label>Search friends</label>
+                    <md-input v-model="form.search"></md-input>
+                </md-field>
+                <p v-for="rec in filterFriends">
+                    <span v-html="filterBold(form.search, rec)"></span>
+               </p>
+
+            </div>
+        </div>
+
+
         <c-submit :props="form"></c-submit>
 
 
@@ -66,12 +80,29 @@
                 form: {
                     choicesArr: [],
                     country: null,
-                    description: ''
+                    description: '',
+                    search: '',
+                    friends: [
+                        'john',
+                        'sussie',
+                        'harry',
+                        'heman',
+                    ]
                 }
 
             }
         },
+        methods: {
+            filterBold(query, text){
+                return text.replace(new RegExp('(' + query + ')', 'gi'), '<strong class="highlighted">$1</strong>');
+            },
+        },
         computed: {
+
+            filterFriends(){
+                return this.form.friends.filter(e => e.includes(this.form.search));
+
+            },
             ...mapState([
                 'routeData'
             ]),
@@ -85,8 +116,7 @@
                 this.form[e] = fd[e];
             });
         },
-        methods:{
-        }
+
     }
 </script>
 
