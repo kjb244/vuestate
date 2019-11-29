@@ -12,13 +12,12 @@
                 <md-checkbox v-model="form.choicesArr" value="2">Choice 2</md-checkbox>
             </div>
             <div class="md-layout-item md-small-size-100 md-medium-size-50">
+
                 <md-field>
                     <label for="country">Country</label>
+
                     <md-select v-model="form.country" name="country" id="country">
-                        <md-option value="australia">Australia</md-option>
-                        <md-option value="brazil">Brazil</md-option>
-                        <md-option value="japan">Japan</md-option>
-                        <md-option value="united-states">United States</md-option>
+                        <md-option v-for="(v, k) in form.countryOptions" :value="k">{{v}}</md-option>
                     </md-select>
                 </md-field>
             </div>
@@ -80,6 +79,11 @@
                 form: {
                     choicesArr: [],
                     country: null,
+                    countryOptions: {
+                        brazil: 'Brazil',
+                        japan: 'Japan',
+                        'united-states': 'United States'
+                    },
                     description: '',
                     search: '',
                     friends: [
