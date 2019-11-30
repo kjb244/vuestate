@@ -17,7 +17,7 @@
                     <label for="country">Country</label>
 
                     <md-select v-model="form.country" name="country" id="country">
-                        <md-option v-for="(v, k) in form.countryOptions" :value="k">{{v}}</md-option>
+                        <md-option v-for="(v, k) in form.countryOptions" :key="k" :value="k">{{v}}</md-option>
                     </md-select>
                 </md-field>
             </div>

@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Splash from './views/Splash.vue';
 import Info from './views/Info.vue';
 import Income from './views/Income.vue';
+import Init from './views/Init.vue';
 
 Vue.use(Router);
 
@@ -10,8 +11,13 @@ export default new Router({
   routes: [
     {
       path: '*',
-      name: 'splash',
-      component: Splash
+      name: 'init',
+      component: Init
+    },
+    {
+      path: '/init',
+      name: 'init',
+      component: Init
     },
     {
         path: '/splash',

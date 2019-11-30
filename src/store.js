@@ -44,6 +44,14 @@ export default new Vuex.Store({
 
   },
   mutations: {
+    NEXT_ROUTE: function(state, route){
+        const visitedRoutes = state.routeData.visitedRoutes;
+        if(!visitedRoutes.length){
+            visitedRoutes.push('init');
+        }
+        visitedRoutes.push(route);
+        router.push(route);
+    },
     SUBMIT_CLICK: function(state, data){
         const {currRoute, nextRoute, form}  = data;
         state.routeData.forwardBack = 'forward';
@@ -109,6 +117,9 @@ export default new Vuex.Store({
           }
       }
     },
+    moveFromInit: function(context){
+        context.commit('NEXT_ROUTE', 'splash');
+    },
     removeLinks: function(context, link){
       context.commit('REMOVE_LINK', link);
     },
@@ -122,7 +133,13 @@ export default new Vuex.Store({
     },
     testAjaxGet: function(){
         return axios.get('http://jsonplaceholder.typicode.com/posts');
-
+    },
+    longAjax: function(){
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve();
+            },4000);
+        });
     },
     addRouteData (context){
         setTimeout(() => {
