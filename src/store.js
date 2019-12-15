@@ -9,6 +9,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+      template: 'mv',
       routeData: {
           forwardBack: 'forward',
           routes: ['splash', 'info', 'income'],
@@ -39,6 +40,9 @@ export default new Vuex.Store({
     },
     formData: (state) => (route) => {
         return state.routeData.formData[route] || {};
+    },
+    getTemplate: function(state){
+        return state.template;
     }
 
 
@@ -89,7 +93,10 @@ export default new Vuex.Store({
     ADD_ROUTE_DATA: function(state, data){
         console.log('adding route data mutation');
         state.routeData = data;
-    }
+    },
+    SET_TEMPLATE: function(state, template){
+        state.template = template;
+    },
   },
   actions: {
     submitClick: function(context, form){
@@ -122,6 +129,12 @@ export default new Vuex.Store({
     },
     removeLinks: function(context, link){
       context.commit('REMOVE_LINK', link);
+    },
+    setTemplate: function(context, template) {
+        if(['mv','bs'].includes(template)){
+            context.commit('SET_TEMPLATE', template);
+        }
+
     },
     removeAll (context) {
         return new Promise((resolve, reject) => {
