@@ -1,8 +1,9 @@
 <template>
     <section>
-        <c-modal :showSpinner="showSpinner"></c-modal>
-        <md-button v-on:click="setTemplateInner('mv')" class="md-raised md-primary back">Use MD Vue</md-button><br>
-        <b-button v-on:click="setTemplateInner('bs')" variant="primary" class="mt-4">Use Bootstrap Vue</b-button>
+        <c-modal :showSpinner="showSpinnerMV"></c-modal>
+        <c-b-s-modal :showSpinner="showSpinnerBS"></c-b-s-modal>
+        <md-button v-show="!clickedButton" v-on:click="setTemplateInner('mv')" class="md-raised md-primary back">Use MD Vue</md-button><br>
+        <b-button v-show="!clickedButton" v-on:click="setTemplateInner('bs')" variant="primary" class="mt-4">Use Bootstrap Vue</b-button>
     </section>
 
 </template>
@@ -11,6 +12,7 @@
     import { mapState, mapGetters, mapActions, mapMutations } from 'vuex';
     import Vue from 'vue';
     import CModal from '@/components/CModal.vue';
+    import CBSModal from '@/components/CBSModal.vue';
     import { MdButton } from 'vue-material/dist/components';
     import 'vue-material/dist/vue-material.min.css';
     import 'vue-material/dist/theme/default.css';
@@ -19,16 +21,17 @@
     Vue.use(ButtonPlugin);
 
 
-
-
     export default {
         name: 'init',
         components: {
+            CBSModal,
             CModal
         },
         data(){
             return{
-                showSpinner: false,
+                showSpinnerMV: false,
+                showSpinnerBS: false,
+                clickedButton: false,
 
             }
         },
@@ -40,11 +43,17 @@
             {
 
                 setTemplateInner(template){
+                    this.clickedButton = true;
                     this.setTemplate(template);
-                    this.showSpinner = true;
+                    if(template === 'mv'){
+                        this.showSpinnerMV = true;
+                    } else{
+                        this.showSpinnerBS = true;
+                    }
                     const prom = this.longAjax();
                     prom.then((e) => {
-                        this.showSpinner = false;
+                        this.showSpinnerMV = false;
+                        this.showSpinnerBS = false;
                         this.moveFromInit();
                     })
 
