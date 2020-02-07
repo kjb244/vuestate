@@ -35,7 +35,6 @@
 
         <c-submit :props="form"></c-submit>
 
-
     </section>
 </template>
 
