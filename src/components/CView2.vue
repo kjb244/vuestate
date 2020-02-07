@@ -91,7 +91,6 @@
                         'heman',
                     ]
                 }
-
             }
         },
         methods: {
