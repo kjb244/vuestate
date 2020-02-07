@@ -60,8 +60,6 @@
                     fname: '',
                     lname: ''
                 }
-
-
             }
         },
         computed: {
