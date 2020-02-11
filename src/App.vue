@@ -19,7 +19,10 @@
 
 </script>
 
-<style scoped>
+<style >
+  body {
+    overflow-x: hidden;
+  }
   #app .router {
     margin-left: 10px;
     margin-right: 10px;
