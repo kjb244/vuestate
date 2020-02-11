@@ -24,11 +24,6 @@
     "vue-template-compiler": "^2.5.17"
   },
   "engines": {
-    "node": "10.16.0"
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+    "node": "10.16.x"
+  }
 }
