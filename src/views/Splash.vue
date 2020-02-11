@@ -31,7 +31,7 @@
             ])
         },
         created: function(){
-            console.log(getTemplate)
+
         }
     }
 </script>

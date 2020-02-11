@@ -14,12 +14,9 @@
   </div>
 </template>
 
-<script>
 
 
-</script>
-
-<style >
+<style>
   body {
     overflow-x: hidden;
   }

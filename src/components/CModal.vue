@@ -39,6 +39,12 @@
     .md-dialog {
     }
     .md-progress-spinner {
-        margin: 110px;
+        margin: auto;
+    }
+
+    @media only screen and (min-width: 601px) {
+        .md-progress-spinner{
+            margin: 110px;
+        }
     }
 </style>
