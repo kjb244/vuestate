@@ -9,16 +9,16 @@
 
             <b-row>
                 <b-col sm="12" md="6">
-                    <b-form-input v-model="form.fname" placeholder="First Name"></b-form-input>
+                    <b-form-input v-model="form.fname" :placeholder="jcrData.firstNamePlaceholder"></b-form-input>
                 </b-col>
                 <b-col sm="12" md="6" class="mt-4  mt-md-0">
-                    <b-form-input v-model="form.lname" placeholder="Last Name"></b-form-input>
+                    <b-form-input v-model="form.lname" :placeholder="jcrData.lastNamePlaceholder"></b-form-input>
                 </b-col>
             </b-row>
 
             <b-row>
                 <b-col sm="12" class="mt-4">
-                    <b-form-textarea v-model="form.description" placeholder="Description"></b-form-textarea>
+                    <b-form-textarea v-model="form.description" :placeholder="jcrData.descriptionPlaceholder"></b-form-textarea>
                 </b-col>
             </b-row>
 
@@ -61,13 +61,12 @@
                 'routeData'
             ]),
             ...mapGetters([
-                'formData'
+                'formData', 'jcrData',
             ]),
         },
         created: function(){
-            const fd = this.formData('splash');
-            Object.keys(fd).map((e) => {
-                this.form[e] = fd[e];
+            Object.keys(this.formData).map((e) => {
+                this.form[e] = this.formData[e];
             });
         },
         methods:{

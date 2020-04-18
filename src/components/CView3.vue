@@ -74,9 +74,8 @@
             ]),
         },
         created: function(){
-            const fd = this.formData('income');
-            Object.keys(fd).map((e) => {
-                this.form[e] = fd[e];
+            Object.keys(this.formData).map((e) => {
+                this.form[e] = this.formData[e];
             });
         },
         methods:{

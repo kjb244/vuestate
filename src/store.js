@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
 import router from './router.js';
-
+import jcr from './jcr/copy.json';
 
 Vue.use(Vuex);
 
@@ -17,6 +17,7 @@ export default new Vuex.Store({
               accum[e] = {};
               return accum;
           },{}),
+          jcrData: jcr,
           routeMapping: {
               splash: {
                   next: 'info',
@@ -38,8 +39,13 @@ export default new Vuex.Store({
     countLinks: function(state){
       return state.links.length;
     },
-    formData: (state) => (route) => {
-        return state.routeData.formData[route] || {};
+    formData: (state) =>  {
+        const currRoute = router.currentRoute.name.toLowerCase();
+        return state.routeData.formData[currRoute] || {};
+    },
+    jcrData: (state) => {
+        const currRoute = router.currentRoute.name.toLowerCase();
+        return state.routeData.jcrData[currRoute] || {};
     },
     getTemplate: function(state){
         return state.template;

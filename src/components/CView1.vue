@@ -9,13 +9,13 @@
         <div class="md-layout md-gutter">
             <div class="md-layout-item md-small-size-100 md-medium-size-50">
                 <md-field>
-                    <label>First Name</label>
+                    <label>{{jcrData.firstNamePlaceholder}}</label>
                     <md-input v-model="form.fname"></md-input>
                 </md-field>
             </div>
             <div class="md-layout-item md-small-size-100 md-medium-size-50">
                 <md-field>
-                    <label>Last Name</label>
+                    <label>{{jcrData.lastNamePlaceholder}}</label>
                     <md-input v-model="form.lname"></md-input>
                 </md-field>
             </div>
@@ -25,7 +25,7 @@
             <div class="md-layout-item md-small-size">
 
                 <md-field>
-                    <label>Description</label>
+                    <label>{{jcrData.descriptionPlaceholder}}</label>
                     <md-textarea v-model="form.description" required></md-textarea>
                     <span class="md-helper-text">Helper text</span>
                     <span class="md-error">There is an error</span>
@@ -71,13 +71,12 @@
                 'routeData'
             ]),
             ...mapGetters([
-                'formData'
+                'formData', 'jcrData',
             ]),
         },
         created: function(){
-            const fd = this.formData('splash');
-            Object.keys(fd).map((e) => {
-                this.form[e] = fd[e];
+            Object.keys(this.formData).map((e) => {
+                this.form[e] = this.formData[e];
             });
         },
         methods:{
