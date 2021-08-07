@@ -6,7 +6,7 @@
                     <h2>Splash</h2>
                 </b-col>
             </b-row>
-
+            <b-alert :show="ajaxErrorData===true" variant="danger">Server Side Field Validation</b-alert>
             <b-row>
                 <b-col sm="12" md="6">
                     <b-form-input v-model="form.fname" :placeholder="jcrData.firstNamePlaceholder"></b-form-input>
@@ -35,7 +35,9 @@
 <script>
     import { mapState, mapGetters, mapActions, mapMutations } from 'vuex';
     import Vue from 'vue';
-    import { FormInputPlugin } from 'bootstrap-vue'
+    import { FormInputPlugin } from 'bootstrap-vue';
+    import { AlertPlugin } from 'bootstrap-vue';
+    Vue.use(AlertPlugin);
     Vue.use(FormInputPlugin);
     import CBSSubmit from "./CBSSubmit.vue";
 
@@ -48,9 +50,10 @@
         data(){
             return{
                 form: {
-                    description: '',
                     fname: '',
-                    lname: ''
+                    lname: '',
+                    description: '',
+
                 }
 
 
@@ -61,7 +64,7 @@
                 'routeData'
             ]),
             ...mapGetters([
-                'formData', 'jcrData',
+                'formData', 'jcrData', 'ajaxErrorData',
             ]),
         },
         created: function(){

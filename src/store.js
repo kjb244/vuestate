@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import axios from 'axios';
 import router from './router.js';
 import jcr from './jcr/copy.json';
+import utils from './utils.js';
 
 Vue.use(Vuex);
 
@@ -18,6 +19,7 @@ export default new Vuex.Store({
               return accum;
           },{}),
           jcrData: jcr,
+          ajaxError: false,
           routeMapping: {
               splash: {
                   next: 'info',
@@ -49,6 +51,9 @@ export default new Vuex.Store({
     },
     getTemplate: function(state){
         return state.template;
+    },
+    ajaxErrorData: (state) => {
+        return state.routeData.ajaxError;
     }
 
 
@@ -103,23 +108,40 @@ export default new Vuex.Store({
     SET_TEMPLATE: function(state, template){
         state.template = template;
     },
+
+    SET_AJAX_ERROR: function(state, valu){
+        state.routeData.ajaxError = valu;
+    }
   },
   actions: {
     submitClick: function(context, form){
         console.log('submitClick action');
+        this.state.routeData.ajaxError = false;
+        context.commit('SET_AJAX_ERROR',false);
         const currRoute = router.currentRoute.name.toLowerCase();
         const routeMapping = this.state.routeData.routeMapping[currRoute];
 
         if(routeMapping){
-            const nextRoute = routeMapping.next;
-            if(nextRoute){
+            utils.makeAjaxCall(currRoute).then((payload) =>{
+                const success = payload.type === 'success';
+                if (success){
+                    const nextRoute = routeMapping.next;
+                    if (nextRoute){
 
-                context.commit('SUBMIT_CLICK',{currRoute, nextRoute, form});
-            }
+                        context.commit('SUBMIT_CLICK',{currRoute, nextRoute, form});
+                    }
+                } else {
+                    context.commit('SET_AJAX_ERROR',true);
+
+                }
+
+            });
+
         }
     },
     submitBack: function(context, form){
       console.log('submitBack action');
+      context.commit('SET_AJAX_ERROR',false);
       const currRoute = router.currentRoute.name.toLowerCase();
       const routeMapping = this.state.routeData.routeMapping[currRoute];
 
